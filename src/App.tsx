@@ -13,7 +13,16 @@ function App() {
           <a href="#" style={{ margin: '0 10px', textDecoration: 'none', color: '#000' }}>About</a>
         </nav>
       </header>
-      <main style={{ backgroundImage: "url('/your-background-image.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', color: 'white', textAlign: 'center', padding: '100px 20px' }}>
+      <main style={{ 
+        backgroundImage: "url('/your-background-image.jpg')", 
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
+        color: 'white', 
+        textAlign: 'center', 
+        padding: '100px 20px', 
+        height: '100vh', 
+        width: '100vw' 
+      }}>
         <h2>Welcome to KevMan</h2>
       </main>
       <section style={{ display: 'flex', justifyContent: 'space-around', padding: '20px', backgroundColor: '#000', color: '#fff' }}>
