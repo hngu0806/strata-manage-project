@@ -24,9 +24,9 @@ export default function Home() {
           <Image src="/logo.png" alt="KevMan Logo" width={100} height={100} />
         </div>
 
-        <div className={styles.background}>
+        <div>
           <Image
-            src="/building.jpg"
+            src="public\architecture-buildings-business-city-5ccb68fb6f8353704197a9b34ae1749b.jpg"
             alt="Building Background"
             layout="fill"
             objectFit="cover"
