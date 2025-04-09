@@ -5,6 +5,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url('/public/architecture-buildings-business-city-5ccb68fb6f8353704197a9b34ae1749b.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .main {
