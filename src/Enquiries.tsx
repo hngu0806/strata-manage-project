@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function Enquiries() {
   const [category, setCategory] = useState('');
