@@ -36,7 +36,7 @@ function App() {
           <Route path="/" element={
             <>
               <main style={{ 
-                backgroundImage: "url('/public/architecture-buildings-business-city-5ccb68fb6f8353704197a9b34ae1749b.jpg')", 
+                backgroundImage: "url('public/architecture-buildings-business-city-5ccb68fb6f8353704197a9b34ae1749b.jpg')", 
                 backgroundSize: 'cover', 
                 backgroundPosition: 'center', 
                 color: '#f5f5f5', 
