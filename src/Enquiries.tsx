@@ -16,12 +16,21 @@ function Enquiries() {
     setSubmitStatus('idle');
     
     try {
-      // For now, just log the form data since we don't have a backend
-      console.log('Form submitted:', {
-        ...formData,
-        category: category === 'Other' ? formData.otherCategory : category
+      const response = await fetch('/api/enquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          category: category === 'Other' ? formData.otherCategory : category
+        })
       });
-      
+
+      if (!response.ok) {
+        throw new Error('Failed to submit enquiry');
+      }
+
       // Clear form
       setFormData({
         name: '',
