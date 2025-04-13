@@ -9,11 +9,11 @@ function Enquiries() {
     otherCategory: '',
     description: ''
   });
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setSubmitStatus('idle');
+    setIsSubmitting(true);
     
     try {
       const response = await fetch('/api/enquiries', {
@@ -40,14 +40,14 @@ function Enquiries() {
         description: ''
       });
       setCategory('');
-      setSubmitStatus('success');
       
       // Show success message
       alert('Enquiry submitted successfully! We will get back to you soon.');
     } catch (error) {
       console.error('Error submitting form:', error);
-      setSubmitStatus('error');
       alert('There was an error submitting your enquiry. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -182,7 +182,7 @@ function Enquiries() {
           
           <button 
             type="submit" 
-            disabled={submitStatus === 'idle'}
+            disabled={isSubmitting}
             style={{ 
               padding: '14px 28px', 
               backgroundColor: '#D4AF37', 
@@ -192,14 +192,14 @@ function Enquiries() {
               marginTop: '16px',
               fontWeight: '600',
               fontSize: '16px',
-              cursor: 'pointer',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
               fontFamily: 'Inter, sans-serif',
               boxShadow: '0 8px 16px rgba(212, 175, 55, 0.2)',
               transition: 'all 0.3s ease',
-              opacity: submitStatus === 'idle' ? 1 : 0.7
+              opacity: isSubmitting ? 0.7 : 1
             }}
           >
-            Submit Enquiry
+            {isSubmitting ? 'Submitting...' : 'Submit Enquiry'}
           </button>
         </form>
       </div>
