@@ -1,4 +1,3 @@
-
 function Contact() {
   return (
     <div style={{ 
@@ -127,15 +126,15 @@ function Contact() {
             <p style={{ color: '#B0B0B0', lineHeight: '1.6', marginBottom: '8px' }}>Office Hours: Monday-Friday, 9am-5pm</p>
           </div>
           
-          <div style={{ marginTop: '24px', height: '200px', backgroundColor: '#2a2a2a', borderRadius: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
+          <div style={{ flex: 1, padding: '20px' }}>
             <img 
               src="/public/Map.png" 
-              alt="Office Location Map" 
+              alt="Map" 
               style={{ 
                 width: '100%', 
-                height: '100%', 
-                objectFit: 'cover',
-                borderRadius: '8px'
+                height: 'auto', 
+                borderRadius: '8px',
+                boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)'
               }} 
             />
           </div>

@@ -7,7 +7,17 @@ import About from '../src/About'
 function App() {
   return (
     <Router>
-      <div style={{ fontFamily: 'Inter', minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#0D0D0D', color: '#f5f5f5' }}>
+      <div style={{ 
+        backgroundImage: "url('public/architecture-buildings-business-city-5ccb68fb6f8353704197a9b34ae1749b.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#0D0D0D',
+        color: '#f5f5f5'
+      }}>
         <header style={{ 
           backgroundColor: '#1A1A1A', 
           padding: '16px 24px', 
