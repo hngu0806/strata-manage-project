@@ -18,10 +18,11 @@ function Enquiries() {
     setSubmitStatus({ type: null, message: '' });
     
     try {
-      const response = await fetch('/api/enquiries', {
+      const response = await fetch('https://strata-manage-project.vercel.app/api/enquiries', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           ...formData,
@@ -30,10 +31,15 @@ function Enquiries() {
         })
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (e) {
+        throw new Error('Failed to parse response');
+      }
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to submit enquiry');
+        throw new Error(data?.message || 'Failed to submit enquiry');
       }
 
       // Clear form
@@ -55,7 +61,7 @@ function Enquiries() {
       console.error('Error submitting form:', error);
       setSubmitStatus({ 
         type: 'error', 
-        message: 'There was an error submitting your enquiry. Please try again.' 
+        message: error instanceof Error ? error.message : 'There was an error submitting your enquiry. Please try again.' 
       });
     } finally {
       setIsSubmitting(false);
