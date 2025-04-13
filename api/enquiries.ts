@@ -1,8 +1,8 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
-  request: VercelRequest,
-  response: VercelResponse,
+  request: NextApiRequest,
+  response: NextApiResponse,
 ) {
   // Handle CORS
   response.setHeader('Access-Control-Allow-Credentials', 'true');

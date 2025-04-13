@@ -128,13 +128,13 @@ function Contact() {
           
           <div style={{ flex: 1, padding: '20px' }}>
             <img 
-              src="/public/Map.png" 
-              alt="Map" 
+              src="/Map.png" 
+              alt="Office Location Map" 
               style={{ 
-                width: '100%', 
-                height: 'auto', 
-                borderRadius: '8px',
-                boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)'
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                borderRadius: '8px'
               }} 
             />
           </div>
