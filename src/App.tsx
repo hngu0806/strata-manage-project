@@ -3,6 +3,7 @@ import Maintenance from '../src/Maintenance'
 import Enquiries from '../src/Enquiries'
 import Contact from '../src/Contact'
 import About from '../src/About'
+import Payment from './Payment'
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <nav>
             <Link to="/" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Home</Link>
             <a href="/api/todolist.php" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>To Do List</a>
+            <Link to="/payment" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Payment</Link>
             <Link to="/maintenance" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Maintenance</Link>
             <Link to="/enquiries" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Enquiries</Link>
             <Link to="/contact" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Contact</Link>
@@ -164,6 +166,7 @@ function App() {
           <Route path="/enquiries" element={<Enquiries />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </div>
     </Router>
