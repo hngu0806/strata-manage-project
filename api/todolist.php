@@ -113,6 +113,21 @@ if (isset($_GET['delete'])) {
 </head>
 <body>
     <div class="todo-container">
+        <a href="/" style="
+            display: inline-block;
+            margin-bottom: 24px;
+            padding: 10px 24px;
+            background-color: #D4AF37;
+            color: #0D0D0D;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        ">Back to Home</a>
         <h1>To-Do List</h1>
         <form method="POST">
             <input type="text" name="new_todo" placeholder="Enter a new task..." required>
