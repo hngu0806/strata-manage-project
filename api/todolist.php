@@ -61,11 +61,13 @@ if (isset($_GET['delete'])) {
         }
         form {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            flex-direction: row;
+            gap: 12px;
+            margin-bottom: 32px;
+            justify-content: center;
         }
         input[type="text"] {
-            width: 100%;
+            flex: 1;
             padding: 12px 16px;
             border-radius: 8px;
             border: 1px solid #333;
@@ -74,7 +76,7 @@ if (isset($_GET['delete'])) {
             font-family: 'Inter', sans-serif;
         }
         button {
-            padding: 14px 28px;
+            padding: 12px 24px;
             background-color: #D4AF37;
             color: #0D0D0D;
             border: none;
@@ -87,7 +89,6 @@ if (isset($_GET['delete'])) {
             transition: all 0.3s ease;
         }
         ul {
-            margin-top: 32px;
             padding: 0;
             list-style: none;
         }
@@ -115,7 +116,7 @@ if (isset($_GET['delete'])) {
         <h1>To-Do List</h1>
         <form method="POST">
             <input type="text" name="new_todo" placeholder="Enter a new task..." required>
-            <button type="submit">Add Task</button>
+            <button type="submit">Add</button>
         </form>
         <ul>
             <?php foreach ($_SESSION['todos'] as $i => $todo): ?>
