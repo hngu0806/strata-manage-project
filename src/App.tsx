@@ -36,6 +36,7 @@ function App() {
           }}>KevMan</h1>
           <nav>
             <Link to="/" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Home</Link>
+            <a href="/api/todo.php" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>To Do List</a>
             <Link to="/maintenance" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Maintenance</Link>
             <Link to="/enquiries" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Enquiries</Link>
             <Link to="/contact" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Contact</Link>
