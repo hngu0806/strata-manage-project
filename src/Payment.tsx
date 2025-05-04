@@ -22,12 +22,22 @@ function Payment() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: '' });
-    // Simulate successful submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus({ type: 'success', message: 'Payment method added successfully!' });
+
+    try {
+      const response = await fetch('/api/payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Failed to add payment method');
+      setSubmitStatus({ type: 'success', message: data.message });
       setFormData({ cardNumber: '', expiration: '', cvv: '', name: '' });
-    }, 1000);
+    } catch (error: any) {
+      setSubmitStatus({ type: 'error', message: error.message });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
