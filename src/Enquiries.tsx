@@ -18,16 +18,18 @@ function Enquiries() {
     setSubmitStatus({ type: null, message: '' });
     
     try {
-      const response = await fetch('https://strata-manage-project.vercel.app/api/enquiries', {
+      const response = await fetch('/api/enquiries.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          ...formData,
+          name: formData.name,
+          email: formData.email,
+          unit: formData.unit,
           category: category === 'Other' ? formData.otherCategory : category,
-          timestamp: new Date().toISOString()
+          description: formData.description
         })
       });
 
