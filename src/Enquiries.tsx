@@ -18,7 +18,7 @@ function Enquiries() {
     setSubmitStatus({ type: null, message: '' });
     
     try {
-      const response = await fetch('api/enquiries.php', {
+      const response = await fetch('/api/enquiries.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
