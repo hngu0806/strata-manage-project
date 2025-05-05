@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 interface User {
   id: string;
-  name: string;
+  username: string;
   email: string;
   role: 'resident' | 'admin';
 }
@@ -11,6 +11,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
+  signUp: (username: string, email: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
   theme: 'light' | 'dark';
@@ -18,6 +19,17 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// Helper function to get users from localStorage
+const getUsers = (): { [key: string]: { username: string; email: string; password: string } } => {
+  const users = localStorage.getItem('users');
+  return users ? JSON.parse(users) : {};
+};
+
+// Helper function to save users to localStorage
+const saveUsers = (users: { [key: string]: { username: string; email: string; password: string } }) => {
+  localStorage.setItem('users', JSON.stringify(users));
+};
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -43,24 +55,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const login = async (email: string, password: string) => {
-    try {
-      // Here you would typically make an API call to your backend
-      // For demo purposes, we'll simulate a successful login
-      const mockUser: User = {
-        id: '1',
-        name: 'John Doe',
-        email: email,
-        role: 'resident'
-      };
+  const signUp = async (username: string, email: string, password: string) => {
+    const users = getUsers();
 
-      // Set user session cookie (expires in 7 days)
-      Cookies.set('user_session', JSON.stringify(mockUser), { expires: 7 });
-      setUser(mockUser);
-    } catch (error) {
-      console.error('Login error:', error);
-      throw error;
+    // Check if username or email already exists
+    if (Object.values(users).some(user => user.username === username)) {
+      throw new Error('Username already exists');
     }
+    if (Object.values(users).some(user => user.email === email)) {
+      throw new Error('Email already registered');
+    }
+
+    // Save new user
+    users[email] = { username, email, password };
+    saveUsers(users);
+  };
+
+  const login = async (email: string, password: string) => {
+    const users = getUsers();
+    const user = users[email];
+
+    if (!user || user.password !== password) {
+      throw new Error('Invalid email or password');
+    }
+
+    const userData: User = {
+      id: email, // Using email as ID for simplicity
+      username: user.username,
+      email: user.email,
+      role: 'resident'
+    };
+
+    // Set user session cookie (expires in 7 days)
+    Cookies.set('user_session', JSON.stringify(userData), { expires: 7 });
+    setUser(userData);
   };
 
   const logout = () => {
@@ -78,6 +106,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     <AuthContext.Provider value={{
       user,
       login,
+      signUp,
       logout,
       isAuthenticated: !!user,
       theme,

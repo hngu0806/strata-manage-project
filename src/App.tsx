@@ -5,6 +5,7 @@ import Contact from '../src/Contact'
 import About from '../src/About'
 import Payment from './Payment'
 import Login from './components/Login'
+import SignUp from './components/SignUp'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 
 function Navigation() {
@@ -21,7 +22,7 @@ function Navigation() {
       <Link to="/about" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>About</Link>
       {isAuthenticated ? (
         <>
-          <span style={{ margin: '0 16px', color: '#f5f5f5' }}>Welcome, {user?.name}</span>
+          <span style={{ margin: '0 16px', color: '#f5f5f5' }}>Welcome, {user?.username}</span>
           <button 
             onClick={logout}
             style={{
@@ -37,7 +38,10 @@ function Navigation() {
           </button>
         </>
       ) : (
-        <Link to="/login" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Login</Link>
+        <>
+          <Link to="/login" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Login</Link>
+          <Link to="/signup" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Sign Up</Link>
+        </>
       )}
     </nav>
   );
@@ -199,6 +203,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/payment" element={<Payment />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </div>
       </Router>
