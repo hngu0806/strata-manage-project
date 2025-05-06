@@ -24,10 +24,10 @@ export default async function handler(
   }
 
   const client = new Client({
-    host: process.env.PGHOST,         // Neon host
-    database: process.env.PGDATABASE, // Neon db name
-    user: process.env.PGUSER,         // Neon user
-    password: process.env.PGPASSWORD, // Neon password
+    host: process.env.PGHOST,
+    database: process.env.PGDATABASE,
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
     port: process.env.PGPORT ? parseInt(process.env.PGPORT) : 5432,
     ssl: { rejectUnauthorized: false }
   });
@@ -42,6 +42,6 @@ export default async function handler(
     return res.status(200).json({ message: 'Rental unit listed successfully!' });
   } catch (error) {
     console.error('Error saving rental unit:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 } 
