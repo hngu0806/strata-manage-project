@@ -29,7 +29,7 @@ function ForRent() {
 
   const fetchRentalUnits = async () => {
     try {
-      const response = await fetch('https://your-backend-domain.com/api/rental_units.php');
+      const response = await fetch('/api/rental_units.php');
       if (!response.ok) throw new Error('Failed to fetch rental units');
       const data = await response.json();
       setRentalUnits(data);
@@ -52,7 +52,7 @@ function ForRent() {
     setErrorMessage('');
 
     try {
-      const response = await fetch('https://your-backend-domain.com/api/rental_units.php', {
+      const response = await fetch('/api/rental_units.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
