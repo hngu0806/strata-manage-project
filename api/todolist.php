@@ -1,42 +1,26 @@
 <?php
 session_start();
-require_once 'db_connect.php';
 
-// Get user email from session
-$user_email = $_SESSION['user_email'] ?? null;
-
-if (!$user_email) {
-    header('Location: /login');
-    exit;
+// Initialize the to-do list if it doesn't exist
+if (!isset($_SESSION['todos'])) {
+    $_SESSION['todos'] = [];
 }
 
 // Handle adding a new to-do
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_todo'])) {
     $newTodo = trim($_POST['new_todo']);
     if ($newTodo !== '') {
-        $stmt = $pdo->prepare("INSERT INTO todos (task, user_email) VALUES (?, ?)");
-        $stmt->execute([$newTodo, $user_email]);
+        $_SESSION['todos'][] = $newTodo;
     }
 }
 
 // Handle deleting a to-do
 if (isset($_GET['delete'])) {
-    $id = (int)$_GET['delete'];
-    $stmt = $pdo->prepare("DELETE FROM todos WHERE id = ? AND user_email = ?");
-    $stmt->execute([$id, $user_email]);
+    $index = (int)$_GET['delete'];
+    if (isset($_SESSION['todos'][$index])) {
+        array_splice($_SESSION['todos'], $index, 1);
+    }
 }
-
-// Handle marking a to-do as complete
-if (isset($_GET['complete'])) {
-    $id = (int)$_GET['complete'];
-    $stmt = $pdo->prepare("UPDATE todos SET completed = NOT completed WHERE id = ? AND user_email = ?");
-    $stmt->execute([$id, $user_email]);
-}
-
-// Fetch all todos for the current user
-$stmt = $pdo->prepare("SELECT * FROM todos WHERE user_email = ? ORDER BY created_at DESC");
-$stmt->execute([$user_email]);
-$todos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
@@ -117,22 +101,13 @@ $todos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             justify-content: space-between;
             align-items: center;
         }
-        .todo-actions {
-            display: flex;
-            gap: 8px;
-        }
-        .action-btn {
+        .delete-btn {
             background: none;
             border: none;
             color: #D4AF37;
             cursor: pointer;
             font-weight: 600;
             font-size: 15px;
-            padding: 4px 8px;
-        }
-        .completed {
-            text-decoration: line-through;
-            color: #666;
         }
     </style>
 </head>
@@ -159,15 +134,10 @@ $todos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <button type="submit">Add</button>
         </form>
         <ul>
-            <?php foreach ($todos as $todo): ?>
+            <?php foreach ($_SESSION['todos'] as $i => $todo): ?>
                 <li>
-                    <span class="<?= $todo['completed'] ? 'completed' : '' ?>"><?= htmlspecialchars($todo['task']) ?></span>
-                    <div class="todo-actions">
-                        <a class="action-btn" href="?complete=<?= $todo['id'] ?>">
-                            <?= $todo['completed'] ? 'Undo' : 'Complete' ?>
-                        </a>
-                        <a class="action-btn" href="?delete=<?= $todo['id'] ?>" onclick="return confirm('Delete this task?');">Delete</a>
-                    </div>
+                    <span><?= htmlspecialchars($todo) ?></span>
+                    <a class="delete-btn" href="?delete=<?= $i ?>" onclick="return confirm('Delete this task?');">Delete</a>
                 </li>
             <?php endforeach; ?>
         </ul>
