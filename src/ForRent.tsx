@@ -24,7 +24,7 @@ function ForRent() {
     setErrorMessage('');
 
     try {
-      const response = await fetch('https://your-server.com/api/rental_units.php', {
+      const response = await fetch('/api/rental_units.ts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
