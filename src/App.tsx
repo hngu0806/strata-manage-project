@@ -7,6 +7,7 @@ import Payment from './Payment'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
+import ForRent from './ForRent'
 
 function Navigation() {
   const { user, logout, isAuthenticated } = useAuth();
@@ -20,6 +21,7 @@ function Navigation() {
       <Link to="/enquiries" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Enquiries</Link>
       <Link to="/contact" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>Contact</Link>
       <Link to="/about" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>About</Link>
+      <Link to="/for-rent" style={{ margin: '0 16px', textDecoration: 'none', color: '#D4AF37', fontWeight: 500 }}>For Rent</Link>
       {isAuthenticated ? (
         <>
           <span style={{ margin: '0 16px', color: '#f5f5f5' }}>Welcome, {user?.username}</span>
@@ -204,6 +206,7 @@ function App() {
             <Route path="/payment" element={<Payment />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/for-rent" element={<ForRent />} />
           </Routes>
         </div>
       </Router>
