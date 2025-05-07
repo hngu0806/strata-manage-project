@@ -9,16 +9,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ssl: { rejectUnauthorized: false }
   });
 
-  await client.connect();
-  // Set the session variable for RLS
-  await client.query(`SET app.current_user_email = $1`, [email]);
+  try {
+    await client.connect();
+    
+    // Perform case-insensitive search on description
+    const { rows } = await client.query(
+      `SELECT * FROM enquiries WHERE email = $1 AND description ILIKE $2`,
+      [email, `%${search}%`]
+    );
 
-  // Perform the full-text search
-  const { rows } = await client.query(
-    `SELECT * FROM enquiries WHERE description_tsv @@ plainto_tsquery('english', $1)`,
-    [search]
-  );
-
-  await client.end();
-  res.status(200).json(rows);
+    await client.end();
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error('Error searching enquiries:', error);
+    res.status(500).json({ message: 'Error searching enquiries' });
+  }
 }
