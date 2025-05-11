@@ -24,7 +24,7 @@ function Payment() {
     setSubmitStatus({ type: null, message: '' });
 
     try {
-      const response = await fetch('/api/payment', {
+      const response = await fetch('/api/payment.ts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
